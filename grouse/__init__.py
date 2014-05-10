@@ -28,8 +28,6 @@ class GROUSE(object):
         Ov = v[mask==1]
         OU = U[mask==1,:]
 
-        print Ov, OU
-
         w, _, __, ___ = la.lstsq(OU, Ov)
         p = U.dot(w)
         r = np.zeros((n,))
