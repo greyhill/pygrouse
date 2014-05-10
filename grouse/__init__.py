@@ -38,10 +38,13 @@ class GROUSE(object):
         sigma = la.norm(r) * la.norm(p)
         eta = self.eta0 / self.it
 
-        U = U + (np.cos(sigma * eta) - 1.0) * np.outer(p, w) \
-                     / (la.norm(p) * la.norm(w)) \
-              + np.sin(sigma * eta) * np.outer(r, w) \
-                     / (la.norm(r) * la.norm(w))
+        pw = la.norm(p) * la.norm(w)
+        rw = la.norm(r) * la.norm(w)
+
+        if pw == 0 or rw == 0: return
+
+        U = U + (np.cos(sigma * eta) - 1.0) * np.outer(p, w) / pw \
+              + np.sin(sigma * eta) * np.outer(r, w) / rw
 
         self.U = U
         self.it += 1.0
